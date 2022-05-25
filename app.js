@@ -33,27 +33,38 @@ function Product(name, fileExtension = 'jpeg') {
   allProducts.push(this);
 }
 
-new Product('sweep', 'png');
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('water-Can');
-new Product('wine-Glass');
+let retreivedProducts = localStorage.getItem('products');
+console.log('Retreived Goats', retreivedProducts);
+
+let parsedProducts = JSON.parse(retreivedProducts);
+console.log('Parsed >>>>', parsedProducts);
 
 
+if (retreivedProducts) {
+  allProducts = parsedProducts;
+} else {
+  new Product('sweep', 'png');
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('water-Can');
+  new Product('wine-Glass');
+}
+
+console.log('RECONSTRUCTED PRODUCTS >> ', allProducts);
 //***************** HELPER FUNCTIONS/EXECUTABLE CODE ************
 
 
@@ -183,6 +194,10 @@ function handleClick(event) {
 
   if (voteCount === 0) {
     productContainer.removeEventListener('click', handleClick);
+
+    let stringifiedProducts = JSON.stringify(allProducts);
+    console.log(stringifiedProducts);
+    localStorage.setItem('products', stringifiedProducts);
   }
 }
 
